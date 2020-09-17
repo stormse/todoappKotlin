@@ -12,4 +12,7 @@
     <string name="splash_description"><![CDATA[by Daniel&laetitia]]></string>
     <string name="splash_about">Denna app gjort för kotlin app test för my.se skolan vi hoppas att ni gillar den. lorem fksjdhfkshkhfks kjfhkas hk asdfjks dfhkads hsdkfhkjasd</string>
     <string name="start">Start</string>
+    <string name="list_name">List name</string>
+    <string name="cancel">Cancel</string>
+    <string name="create">Create</string>
 </resources>

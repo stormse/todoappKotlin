@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import se.tolk24.todolist_kotlin.R
 import se.tolk24.todolist_kotlin.data.Item
@@ -54,16 +57,10 @@ class TodoListFragment : Fragment() {
     private fun initView(root: View) {
         val listRecyclerView: RecyclerView = root.findViewById(R.id.recycler_view_lists)
         listRecyclerView.adapter = TodoListAdapter(data)
+
+        root.findViewById<View>(R.id.btn_add).setOnClickListener {
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        }
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-//        view.findViewById<Button>(R.id.button_first).setOnClickListener {
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-//        }
-    }
-
 
 }
