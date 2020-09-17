@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="se.tolk24.todolist_kotlin.TodoListFragment"
+        android:name="se.tolk24.todolist_kotlin.ui.list.TodoListFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_todo_list">
 

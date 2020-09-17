@@ -1,13 +1,12 @@
-package se.tolk24.todolist_kotlin
+package se.tolk24.todolist_kotlin.ui.list
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import se.tolk24.todolist_kotlin.R
 import se.tolk24.todolist_kotlin.data.Item
 import se.tolk24.todolist_kotlin.data.List
 
@@ -54,7 +53,7 @@ class TodoListFragment : Fragment() {
 
     private fun initView(root: View) {
         val listRecyclerView: RecyclerView = root.findViewById(R.id.recycler_view_lists)
-
+        listRecyclerView.adapter = TodoListAdapter(data)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
