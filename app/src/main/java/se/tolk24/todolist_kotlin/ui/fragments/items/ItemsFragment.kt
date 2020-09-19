@@ -1,31 +1,48 @@
-package se.tolk24.todolist_kotlin.ui.list
+package se.tolk24.todolist_kotlin.ui.fragments.items
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import se.tolk24.todolist_kotlin.R
+import se.tolk24.todolist_kotlin.data.models.List
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class TodoListFragment : Fragment() {
+class ItemsFragment : Fragment() {
 
-    private val todoListViewModel: TodoListViewModel by activityViewModels()
-    private lateinit var todoListAdapter: TodoListAdapter
+    companion object {
+        private const val LIST_KEY = "LIST_KEY"
+
+        fun getArguments(list: List): Bundle {
+            val args = Bundle()
+            args.putSerializable(LIST_KEY, list)
+            return args
+        }
+    }
+
+    private val todoListViewModel: ItemsViewModel by activityViewModels()
+    private lateinit var itemsAdapter: ItemsAdapter
     private lateinit var mLoadingProgressBar: ProgressBar
+    private lateinit var list: List
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        list = arguments?.get(LIST_KEY) as List
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root: View = inflater.inflate(R.layout.fragment_todo_list, container, false)
+        val root: View = inflater.inflate(R.layout.fragment_items, container, false)
 
         initView(root)
         return root
@@ -34,14 +51,16 @@ class TodoListFragment : Fragment() {
     private fun initView(root: View) {
 
         mLoadingProgressBar = root.findViewById(R.id.progressBar_loading)
-        val listRecyclerView: RecyclerView = root.findViewById(R.id.recycler_view_lists)
+        val listRecyclerView: RecyclerView = root.findViewById(R.id.recycler_view_items)
 
-        todoListAdapter = TodoListAdapter()
-        listRecyclerView.adapter = todoListAdapter
+        itemsAdapter = ItemsAdapter()
+        listRecyclerView.adapter = itemsAdapter
+
+        root.findViewById<TextView>(R.id.txt_list_name).text = list.name
 
         root.findViewById<View>(R.id.btn_add).setOnClickListener {
 
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
     }
 
@@ -49,10 +68,10 @@ class TodoListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        todoListViewModel.lists.observe(viewLifecycleOwner, {
-            todoListAdapter.setData(it)
+        todoListViewModel.items.observe(viewLifecycleOwner, {
+            itemsAdapter.setData(it)
         })
-        todoListViewModel.isCreateList.observe(viewLifecycleOwner, {
+        todoListViewModel.isItemCreated.observe(viewLifecycleOwner, {
             if (it) {
                 showMessage(getString(R.string.list_created_successfully))
             }
@@ -70,7 +89,7 @@ class TodoListFragment : Fragment() {
                 mLoadingProgressBar.visibility = View.GONE
         })
 
-        todoListViewModel.loadData()
+        todoListViewModel.loadData(list.id)
     }
 
     private fun showMessage(message: String) {

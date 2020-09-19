@@ -1,4 +1,4 @@
-package se.tolk24.todolist_kotlin.ui.list
+package se.tolk24.todolist_kotlin.ui.fragments.list
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

@@ -1,4 +1,4 @@
-package se.tolk24.todolist_kotlin.ui.create_list
+package se.tolk24.todolist_kotlin.ui.fragments.create_list
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,13 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.google.android.material.textfield.TextInputEditText
 import se.tolk24.todolist_kotlin.R
 import se.tolk24.todolist_kotlin.data.models.List
-import se.tolk24.todolist_kotlin.ui.list.TodoListViewModel
+import se.tolk24.todolist_kotlin.ui.fragments.list.TodoListViewModel
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.

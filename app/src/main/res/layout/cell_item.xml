@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -10,6 +9,6 @@
         android:layout_height="wrap_content"
         android:paddingVertical="10dp"
         android:paddingStart="20dp"
-        android:text="shopping"
+        android:text="item"
         android:textSize="14sp" />
 </RelativeLayout>

@@ -19,7 +19,7 @@ class ItemsRepository {
     private val _loading = MutableLiveData<Boolean>()
     val loading = _loading
 
-    fun fetchLists(listId: String) {
+    fun fetchItems(listId: String) {
         loading.postValue(true)
         itemsFirebaseManager.getItems(listId, object : OnGetItemsListener {
             override fun onSuccess(itemsData: ArrayList<Item>) {

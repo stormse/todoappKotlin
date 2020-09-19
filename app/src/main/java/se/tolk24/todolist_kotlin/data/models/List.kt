@@ -4,8 +4,11 @@ import com.google.firebase.firestore.Exclude
 import java.io.Serializable
 
 class List() : Serializable {
-    @Exclude
     var id: String = ""
+        @Exclude
+        get
+        @Exclude
+        set
     var name: String = ""
 
     constructor(name: String) : this() {

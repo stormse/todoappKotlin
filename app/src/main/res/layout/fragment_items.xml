@@ -8,10 +8,20 @@
     tools:context=".ui.fragments.list.TodoListFragment">
 
 
+    <TextView
+        android:id="@+id/txt_list_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textSize="18sp" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_lists"
+        android:id="@+id/recycler_view_items"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/txt_list_name"
+        android:layout_marginTop="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

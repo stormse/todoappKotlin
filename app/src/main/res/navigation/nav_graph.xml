@@ -3,21 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/todoListFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="se.tolk24.todolist_kotlin.ui.list.TodoListFragment"
+        android:id="@+id/todoListFragment"
+        android:name="se.tolk24.todolist_kotlin.ui.fragments.list.TodoListFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_todo_list">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_listFragment_to_createListFragment"
+            app:destination="@id/createListFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_itemsFragment"
+            app:destination="@id/itemsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="se.tolk24.todolist_kotlin.ui.create_list.CreateListFragment"
+        android:id="@+id/createListFragment"
+        android:name="se.tolk24.todolist_kotlin.ui.fragments.create_list.CreateListFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_create_list"/>
+        tools:layout="@layout/fragment_create_list" />
+    <fragment
+        android:id="@+id/itemsFragment"
+        android:name="se.tolk24.todolist_kotlin.ui.fragments.items.ItemsFragment"
+        android:label="ItemsFragment" />
 </navigation>
