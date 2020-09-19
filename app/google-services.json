@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1086194827889",
+    "firebase_url": "https://todolist-kt-a430a.firebaseio.com",
+    "project_id": "todolist-kt-a430a",
+    "storage_bucket": "todolist-kt-a430a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086194827889:android:ff9501262f2a48e80691d0",
+        "android_client_info": {
+          "package_name": "se.tolk24.todolist_kotlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086194827889-1sngr8pv5h0hgvv2mf6i1td1muenfqj6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDThQeBxXyNfqeyg6LBUlQ5XmA011Nkf6o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086194827889-1sngr8pv5h0hgvv2mf6i1td1muenfqj6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
