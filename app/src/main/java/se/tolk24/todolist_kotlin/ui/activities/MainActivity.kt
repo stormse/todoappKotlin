@@ -13,4 +13,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
     }
+
+    fun setTitle(title: String) {
+        supportActionBar?.let { it.title = title }
+    }
+
+    fun setBackButton(enabled: Boolean) {
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(enabled)
+            it.setHomeButtonEnabled(enabled)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }

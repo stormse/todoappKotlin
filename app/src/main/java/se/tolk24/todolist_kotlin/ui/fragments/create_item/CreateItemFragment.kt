@@ -12,6 +12,7 @@ import com.google.android.material.textfield.TextInputEditText
 import se.tolk24.todolist_kotlin.R
 import se.tolk24.todolist_kotlin.data.models.Item
 import se.tolk24.todolist_kotlin.data.models.List
+import se.tolk24.todolist_kotlin.ui.fragments.BaseFragment
 import se.tolk24.todolist_kotlin.ui.fragments.items.ItemsFragment
 import se.tolk24.todolist_kotlin.ui.fragments.items.ItemsViewModel
 import se.tolk24.todolist_kotlin.ui.fragments.list.TodoListViewModel
@@ -19,7 +20,7 @@ import se.tolk24.todolist_kotlin.ui.fragments.list.TodoListViewModel
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class CreateItemFragment : Fragment() {
+class CreateItemFragment : BaseFragment() {
 
     private val itemsViewModel: ItemsViewModel by activityViewModels()
     private lateinit var mNameEditText: TextInputEditText
@@ -65,4 +66,9 @@ class CreateItemFragment : Fragment() {
             }
         }
     }
+
+    override fun getTitle(): String = getString(R.string.create_item)
+
+    override fun canBack(): Boolean = true
+
 }

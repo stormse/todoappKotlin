@@ -12,11 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import se.tolk24.todolist_kotlin.R
 import se.tolk24.todolist_kotlin.data.models.Item
 import se.tolk24.todolist_kotlin.data.models.List
+import se.tolk24.todolist_kotlin.ui.fragments.BaseFragment
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class ItemsFragment : Fragment() {
+class ItemsFragment : BaseFragment() {
 
     companion object {
         const val LIST_KEY = "LIST_KEY"
@@ -116,4 +117,8 @@ class ItemsFragment : Fragment() {
     interface OnItemDeletedListener {
         fun onItemDeleted(item: Item)
     }
+
+    override fun getTitle(): String = getString(R.string.items)
+
+    override fun canBack(): Boolean = true
 }

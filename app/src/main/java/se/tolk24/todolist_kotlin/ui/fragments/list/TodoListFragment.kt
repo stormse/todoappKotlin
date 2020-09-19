@@ -12,12 +12,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import se.tolk24.todolist_kotlin.R
 import se.tolk24.todolist_kotlin.data.models.List
+import se.tolk24.todolist_kotlin.ui.fragments.BaseFragment
 import se.tolk24.todolist_kotlin.ui.fragments.items.ItemsFragment
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class TodoListFragment : Fragment() {
+class TodoListFragment : BaseFragment() {
 
     private val todoListViewModel: TodoListViewModel by activityViewModels()
     private lateinit var todoListAdapter: TodoListAdapter
@@ -100,4 +101,8 @@ class TodoListFragment : Fragment() {
         fun onClick(list: List)
         fun onDelete(list: List)
     }
+
+    override fun getTitle(): String = getString(R.string.home)
+
+    override fun canBack(): Boolean = false
 }

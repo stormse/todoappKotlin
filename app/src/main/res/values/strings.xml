@@ -21,4 +21,8 @@
     <string name="blank_list_name_error">List name can\'t be empty</string>
     <string name="blank_item_name_error">Item name can\'t be empty</string>
     <string name="reset">Reset</string>
+    <string name="create_item">Create Item</string>
+    <string name="create_list">Create List</string>
+    <string name="items">Items</string>
+    <string name="home">Home</string>
 </resources>
