@@ -57,7 +57,7 @@ class ItemsFragment : Fragment() {
         itemsAdapter = ItemsAdapter()
         listRecyclerView.adapter = itemsAdapter
 
-        root.findViewById<TextView>(R.id.txt_list_name).text = list.name + " + " + list.id
+        root.findViewById<TextView>(R.id.txt_list_name).text = list.name
 
         root.findViewById<View>(R.id.btn_add).setOnClickListener {
 

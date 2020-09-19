@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.textfield.TextInputEditText
@@ -39,9 +40,19 @@ class CreateListFragment : Fragment() {
 
         view.findViewById<View>(R.id.btn_create).setOnClickListener {
 
-            val list = List(mNameEditText.text.toString())
-            todoListViewModel.createList(list)
-            requireActivity().onBackPressed()
+            val name = mNameEditText.text.toString()
+            if (name.isNullOrEmpty()) {
+
+                Toast.makeText(
+                    requireActivity(),
+                    getString(R.string.blank_list_name_error),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                val list = List(mNameEditText.text.toString())
+                todoListViewModel.createList(list)
+                requireActivity().onBackPressed()
+            }
         }
     }
 }
