@@ -40,7 +40,7 @@ class CreateListFragment : Fragment() {
 
         view.findViewById<View>(R.id.btn_create).setOnClickListener {
 
-            val list = List(mNameEditText.text.toString(), ArrayList())
+            val list = List(mNameEditText.text.toString())
             val args = Bundle();
             args.putSerializable(LIST_OBJ_KEY, list)
 

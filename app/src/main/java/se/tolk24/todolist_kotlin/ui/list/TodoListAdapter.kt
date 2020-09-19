@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import se.tolk24.todolist_kotlin.R
 import se.tolk24.todolist_kotlin.data.models.List
 
-class TodoListAdapter(val data: ArrayList<List>) :
+class TodoListAdapter() :
     RecyclerView.Adapter<TodoListAdapter.ListViewHolder>() {
-
+    private val data = ArrayList<List>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val cellView =
@@ -34,6 +34,12 @@ class TodoListAdapter(val data: ArrayList<List>) :
         init {
             nameTextView = itemView.findViewById(R.id.txt_name)
         }
+    }
+
+    fun setData(data: ArrayList<List>) {
+        this.data.clear()
+        this.data.addAll(data)
+        notifyDataSetChanged()
     }
 
 }
