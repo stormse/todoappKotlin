@@ -1,4 +1,4 @@
-package se.tolk24.todolist_kotlin
+package se.tolk24.todolist_kotlin.ui.create_list
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,12 +8,17 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
+import se.tolk24.todolist_kotlin.R
 import se.tolk24.todolist_kotlin.data.List
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class CreateListFragment : Fragment() {
+
+    companion object {
+        val LIST_OBJ_KEY = "LIST_OBJ_KEY"
+    }
 
     private lateinit var mNameEditText: TextInputEditText
 
@@ -31,25 +36,15 @@ class CreateListFragment : Fragment() {
         mNameEditText = view.findViewById(R.id.edit_name)
         view.findViewById<Button>(R.id.btn_cancel).setOnClickListener {
 
-            onBack()
+            requireActivity().onBackPressed()
         }
 
         view.findViewById<View>(R.id.btn_create).setOnClickListener {
 
             val list = List(mNameEditText.text.toString(), ArrayList())
-            onBack()
+            val args = Bundle();
+            args.putSerializable(LIST_OBJ_KEY, list)
+
         }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-//        view.findViewById<Button>(R.id.button_second).setOnClickListener {
-//        onBack()
-//        }
-    }
-
-    private fun onBack() {
-        findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
     }
 }

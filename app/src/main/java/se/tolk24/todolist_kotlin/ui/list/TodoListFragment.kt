@@ -1,6 +1,8 @@
 package se.tolk24.todolist_kotlin.ui.list
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import se.tolk24.todolist_kotlin.R
 import se.tolk24.todolist_kotlin.data.Item
 import se.tolk24.todolist_kotlin.data.List
+import se.tolk24.todolist_kotlin.ui.create_list.CreateListFragment
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -20,8 +23,8 @@ class TodoListFragment : Fragment() {
 
     private val data = ArrayList<List>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
 
         fillDummyData()
     }
@@ -55,11 +58,21 @@ class TodoListFragment : Fragment() {
     }
 
     private fun initView(root: View) {
+        checkCreatingList()
+
         val listRecyclerView: RecyclerView = root.findViewById(R.id.recycler_view_lists)
         listRecyclerView.adapter = TodoListAdapter(data)
 
         root.findViewById<View>(R.id.btn_add).setOnClickListener {
+
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        }
+    }
+
+    private fun checkCreatingList() {
+        arguments?.apply {
+            val list: List = getSerializable(CreateListFragment.LIST_OBJ_KEY) as List
+            data.add(list)
         }
     }
 

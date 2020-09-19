@@ -17,12 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="se.tolk24.todolist_kotlin.CreateListFragment"
+        android:name="se.tolk24.todolist_kotlin.ui.create_list.CreateListFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_create_list">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_create_list"/>
 </navigation>
