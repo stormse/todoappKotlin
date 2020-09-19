@@ -30,4 +30,8 @@ class ItemsViewModel(application: Application) : AndroidViewModel(application) {
     fun onDestroy() {
         itemsRepositoryy.onDestroy()
     }
+
+    fun deleteItem(listId: String, item: Item) {
+        itemsRepositoryy.deleteItem(listId, item)
+    }
 }

@@ -16,6 +16,8 @@ class ItemsRepository {
     val error: LiveData<String?> = _error
     private val _isItemCreated = MutableLiveData<Boolean>()
     val isItemCreated = _isItemCreated
+    private val _isItemsDeleted = MutableLiveData<Boolean>()
+    val isItemsDeleted = _isItemsDeleted
     private val _loading = MutableLiveData<Boolean>()
     val loading = _loading
 
@@ -62,10 +64,28 @@ class ItemsRepository {
         _error.value = null
         _isItemCreated.value = false
         _loading.value = false
+        _isItemsDeleted.value = false
     }
 
     fun onDestroy() {
         resetMessages()
         _items.postValue(ArrayList())
+    }
+
+    fun deleteItem(listId: String, item: Item) {
+        _items.value?.let {
+            it.remove(item)
+            _items.postValue(it)
+        }
+        itemsFirebaseManager.deleteItem(listId, item, object : OnFirebaseCreateListener {
+            override fun onSuccess() {
+                _isItemsDeleted.postValue(true)
+            }
+
+            override fun onError(message: String?) {
+                message?.let { _error.postValue(it) }
+            }
+
+        })
     }
 }

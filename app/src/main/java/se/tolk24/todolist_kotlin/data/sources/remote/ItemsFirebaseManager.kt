@@ -45,4 +45,16 @@ class ItemsFirebaseManager() {
                 }
             }
     }
+
+    fun deleteItem(
+        listId: String,
+        item: Item,
+        onFirebaseCreateListener: OnFirebaseCreateListener
+    ) {
+
+        db.collection(String.format(ITEMS_COLLECTION, listId))
+            .document(item.id)
+            .delete()
+        onFirebaseCreateListener.onSuccess()
+    }
 }

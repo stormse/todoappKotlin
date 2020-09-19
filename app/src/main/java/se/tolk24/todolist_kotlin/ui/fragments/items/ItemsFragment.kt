@@ -1,9 +1,7 @@
 package se.tolk24.todolist_kotlin.ui.fragments.items
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -12,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import se.tolk24.todolist_kotlin.R
+import se.tolk24.todolist_kotlin.data.models.Item
 import se.tolk24.todolist_kotlin.data.models.List
 
 /**
@@ -29,7 +28,7 @@ class ItemsFragment : Fragment() {
         }
     }
 
-    private val todoListViewModel: ItemsViewModel by activityViewModels()
+    private val itemsViewModel: ItemsViewModel by activityViewModels()
     private lateinit var itemsAdapter: ItemsAdapter
     private lateinit var mLoadingProgressBar: ProgressBar
     private lateinit var list: List
@@ -54,7 +53,11 @@ class ItemsFragment : Fragment() {
         mLoadingProgressBar = root.findViewById(R.id.progressBar_loading)
         val listRecyclerView: RecyclerView = root.findViewById(R.id.recycler_view_items)
 
-        itemsAdapter = ItemsAdapter()
+        itemsAdapter = ItemsAdapter(object : OnItemDeletedListener {
+            override fun onItemDeleted(item: Item) {
+                itemsViewModel.deleteItem(list.id, item)
+            }
+        })
         listRecyclerView.adapter = itemsAdapter
 
         root.findViewById<TextView>(R.id.txt_list_name).text = list.name
@@ -72,28 +75,28 @@ class ItemsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        todoListViewModel.items.observe(viewLifecycleOwner, {
+        itemsViewModel.items.observe(viewLifecycleOwner, {
             itemsAdapter.setData(it)
         })
-        todoListViewModel.isItemCreated.observe(viewLifecycleOwner, {
+        itemsViewModel.isItemCreated.observe(viewLifecycleOwner, {
             if (it) {
                 showMessage(getString(R.string.item_created_successfully))
             }
         })
-        todoListViewModel.error.observe(viewLifecycleOwner, {
-            todoListViewModel.error.observe(viewLifecycleOwner, {
+        itemsViewModel.error.observe(viewLifecycleOwner, {
+            itemsViewModel.error.observe(viewLifecycleOwner, {
 
                 it?.let { showMessage(it) }
             })
         })
-        todoListViewModel.loading.observe(viewLifecycleOwner, { loading ->
+        itemsViewModel.loading.observe(viewLifecycleOwner, { loading ->
             if (loading)
                 mLoadingProgressBar.visibility = View.VISIBLE
             else
                 mLoadingProgressBar.visibility = View.GONE
         })
 
-        todoListViewModel.loadData(list.id)
+        itemsViewModel.loadData(list.id)
     }
 
     private fun showMessage(message: String) {
@@ -102,11 +105,15 @@ class ItemsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        todoListViewModel.resetMessages()
+        itemsViewModel.resetMessages()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        todoListViewModel.onDestroy()
+        itemsViewModel.onDestroy()
+    }
+
+    interface OnItemDeletedListener {
+        fun onItemDeleted(item: Item)
     }
 }
