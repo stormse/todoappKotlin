@@ -6,10 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import se.tolk24.todolist_kotlin.R
-import se.tolk24.todolist_kotlin.data.List
+import se.tolk24.todolist_kotlin.data.models.List
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.

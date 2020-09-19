@@ -5,9 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.cell_todo_list.view.*
 import se.tolk24.todolist_kotlin.R
-import se.tolk24.todolist_kotlin.data.List
+import se.tolk24.todolist_kotlin.data.models.List
 
 class TodoListAdapter(val data: ArrayList<List>) :
     RecyclerView.Adapter<TodoListAdapter.ListViewHolder>() {
