@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -18,6 +19,7 @@ class TodoListFragment : Fragment() {
 
     private val todoListViewModel: TodoListViewModel by activityViewModels()
     private lateinit var todoListAdapter: TodoListAdapter
+    private lateinit var mLoadingProgressBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +33,7 @@ class TodoListFragment : Fragment() {
 
     private fun initView(root: View) {
 
+        mLoadingProgressBar = root.findViewById(R.id.progressBar_loading)
         val listRecyclerView: RecyclerView = root.findViewById(R.id.recycler_view_lists)
 
         todoListAdapter = TodoListAdapter()
@@ -50,7 +53,9 @@ class TodoListFragment : Fragment() {
             todoListAdapter.setData(it)
         })
         todoListViewModel.isCreateList.observe(viewLifecycleOwner, {
-            showMessage(getString(R.string.list_created_successfully))
+            if (it) {
+                showMessage(getString(R.string.list_created_successfully))
+            }
         })
         todoListViewModel.error.observe(viewLifecycleOwner, {
             todoListViewModel.error.observe(viewLifecycleOwner, {
@@ -58,9 +63,22 @@ class TodoListFragment : Fragment() {
                 it?.let { showMessage(it) }
             })
         })
+        todoListViewModel.loading.observe(viewLifecycleOwner, { loading ->
+            if (loading)
+                mLoadingProgressBar.visibility = View.VISIBLE
+            else
+                mLoadingProgressBar.visibility = View.GONE
+        })
+
+        todoListViewModel.loadData()
     }
 
     private fun showMessage(message: String) {
         Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        todoListViewModel.resetMessages()
     }
 }
