@@ -35,7 +35,6 @@ class ListsRepository {
     }
 
     fun createList(list: List) {
-        addListToData(list)
 
         listsFirebaseManager.addList(list, object : OnFirebaseCreateListener {
             override fun onSuccess() {
@@ -47,15 +46,6 @@ class ListsRepository {
             }
 
         })
-    }
-
-    private fun addListToData(list: List) {
-        val lists = ArrayList<List>()
-        _lists.value?.let {
-            lists.addAll(it)
-        }
-        lists.add(list)
-        _lists.postValue(lists)
     }
 
     fun resetMessages() {

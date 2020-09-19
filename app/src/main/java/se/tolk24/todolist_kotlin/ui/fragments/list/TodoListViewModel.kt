@@ -18,9 +18,7 @@ class TodoListViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun loadData() {
-        if (lists.value.isNullOrEmpty()) {
-            listsRepository.fetchLists()
-        }
+        listsRepository.fetchLists()
     }
 
     fun resetMessages() {
