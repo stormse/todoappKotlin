@@ -21,9 +21,14 @@ class TodoListAdapter(private val onListClickListener: TodoListFragment.OnListCl
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.nameTextView.text = data[position].name
-        holder.parentLayoutView.tag = data[position]
+
+        val list = data[position]
+        holder.nameTextView.text = list.name
+
+        holder.parentLayoutView.tag = list
         holder.parentLayoutView.setOnClickListener(this)
+        holder.deleteButton.tag = list
+        holder.deleteButton.setOnClickListener(this)
     }
 
     override fun getItemCount(): Int {
@@ -34,6 +39,7 @@ class TodoListAdapter(private val onListClickListener: TodoListFragment.OnListCl
 
         var nameTextView: TextView = itemView.findViewById(R.id.txt_name)
         var parentLayoutView: View = itemView.findViewById(R.id.layout_parent)
+        var deleteButton: View = itemView.findViewById(R.id.btn_delete)
     }
 
     fun setData(data: ArrayList<List>) {
@@ -43,7 +49,11 @@ class TodoListAdapter(private val onListClickListener: TodoListFragment.OnListCl
     }
 
     override fun onClick(view: View) {
-        onListClickListener.onClick(view.tag as List)
+        when (view.id) {
+            R.id.layout_parent -> onListClickListener.onClick(view.tag as List)
+            R.id.btn_delete -> onListClickListener.onDelete(view.tag as List)
+        }
+
     }
 
 }

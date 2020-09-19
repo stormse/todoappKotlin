@@ -2,6 +2,7 @@ package se.tolk24.todolist_kotlin.data.repositories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import se.tolk24.todolist_kotlin.data.models.Item
 import se.tolk24.todolist_kotlin.data.models.List
 import se.tolk24.todolist_kotlin.data.sources.remote.ListsFirebaseManager
 import se.tolk24.todolist_kotlin.data.sources.remote.OnFirebaseCreateListener
@@ -52,5 +53,21 @@ class ListsRepository {
         _error.value = null
         _isCreateList.value = false
         _loading.value = false
+    }
+
+    fun deleteList(list: List) {
+        _lists.value?.let {
+            it.remove(list)
+            _lists.postValue(it)
+        }
+        listsFirebaseManager.deleteList(list, object : OnFirebaseCreateListener {
+            override fun onSuccess() {
+            }
+
+            override fun onError(message: String?) {
+                message?.let { _error.postValue(it) }
+            }
+
+        })
     }
 }

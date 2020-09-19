@@ -24,4 +24,8 @@ class TodoListViewModel(application: Application) : AndroidViewModel(application
     fun resetMessages() {
         listsRepository.resetMessages()
     }
+
+    fun deleteList(list: List) {
+        listsRepository.deleteList(list)
+    }
 }

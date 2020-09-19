@@ -46,6 +46,10 @@ class TodoListFragment : Fragment() {
                 )
             }
 
+            override fun onDelete(list: List) {
+                todoListViewModel.deleteList(list)
+            }
+
         })
         listRecyclerView.adapter = todoListAdapter
 
@@ -94,5 +98,6 @@ class TodoListFragment : Fragment() {
 
     interface OnListClickListener {
         fun onClick(list: List)
+        fun onDelete(list: List)
     }
 }

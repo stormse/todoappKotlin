@@ -7,14 +7,14 @@ import se.tolk24.todolist_kotlin.data.models.List
 class ListsFirebaseManager() {
     companion object {
 
-        private const val LISTS_DOCUMENT = "lists"
+        private const val LISTS_COLLECTION = "lists"
     }
 
     private var db = FirebaseFirestore.getInstance()
 
     fun addList(list: List, onFirebaseCreateListener: OnFirebaseCreateListener) {
 
-        db.collection(LISTS_DOCUMENT)
+        db.collection(LISTS_COLLECTION)
             .add(list)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
@@ -27,7 +27,7 @@ class ListsFirebaseManager() {
 
 
     fun getListData(onGetListsListener: OnGetListsListener) {
-        db.collection(LISTS_DOCUMENT)
+        db.collection(LISTS_COLLECTION)
             .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -44,5 +44,12 @@ class ListsFirebaseManager() {
                     onGetListsListener.onError(task.exception?.message)
                 }
             }
+    }
+
+    fun deleteList(list: List, onFirebaseCreateListener: OnFirebaseCreateListener) {
+        db.collection(LISTS_COLLECTION)
+            .document(list.id)
+            .delete()
+        onFirebaseCreateListener.onSuccess()
     }
 }
