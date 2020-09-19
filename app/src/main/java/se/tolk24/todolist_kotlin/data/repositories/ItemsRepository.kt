@@ -63,4 +63,9 @@ class ItemsRepository {
         _isItemCreated.value = false
         _loading.value = false
     }
+
+    fun onDestroy() {
+        resetMessages()
+        _items.postValue(ArrayList())
+    }
 }

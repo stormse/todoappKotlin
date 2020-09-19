@@ -26,4 +26,8 @@ class ItemsViewModel(application: Application) : AndroidViewModel(application) {
     fun resetMessages() {
         itemsRepositoryy.resetMessages()
     }
+
+    fun onDestroy() {
+        itemsRepositoryy.onDestroy()
+    }
 }

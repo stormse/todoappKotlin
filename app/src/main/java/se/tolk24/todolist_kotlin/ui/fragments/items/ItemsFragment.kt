@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import se.tolk24.todolist_kotlin.R
 import se.tolk24.todolist_kotlin.data.models.List
@@ -19,9 +20,9 @@ import se.tolk24.todolist_kotlin.data.models.List
 class ItemsFragment : Fragment() {
 
     companion object {
-        private const val LIST_KEY = "LIST_KEY"
+        const val LIST_KEY = "LIST_KEY"
 
-        fun getArguments(list: List): Bundle {
+        fun getListArguments(list: List): Bundle {
             val args = Bundle()
             args.putSerializable(LIST_KEY, list)
             return args
@@ -56,11 +57,14 @@ class ItemsFragment : Fragment() {
         itemsAdapter = ItemsAdapter()
         listRecyclerView.adapter = itemsAdapter
 
-        root.findViewById<TextView>(R.id.txt_list_name).text = list.name
+        root.findViewById<TextView>(R.id.txt_list_name).text = list.name + " + " + list.id
 
         root.findViewById<View>(R.id.btn_add).setOnClickListener {
 
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            findNavController().navigate(
+                R.id.action_itemsFragment_to_createItemFragment,
+                getListArguments(list)
+            )
         }
     }
 
@@ -73,7 +77,7 @@ class ItemsFragment : Fragment() {
         })
         todoListViewModel.isItemCreated.observe(viewLifecycleOwner, {
             if (it) {
-                showMessage(getString(R.string.list_created_successfully))
+                showMessage(getString(R.string.item_created_successfully))
             }
         })
         todoListViewModel.error.observe(viewLifecycleOwner, {
@@ -99,5 +103,10 @@ class ItemsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         todoListViewModel.resetMessages()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        todoListViewModel.onDestroy()
     }
 }

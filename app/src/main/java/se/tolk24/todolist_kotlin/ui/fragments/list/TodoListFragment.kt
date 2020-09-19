@@ -42,7 +42,7 @@ class TodoListFragment : Fragment() {
             override fun onClick(list: List) {
                 findNavController().navigate(
                     R.id.action_listFragment_to_itemsFragment,
-                    ItemsFragment.getArguments(list)
+                    ItemsFragment.getListArguments(list)
                 )
             }
 

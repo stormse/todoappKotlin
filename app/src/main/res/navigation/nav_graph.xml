@@ -26,5 +26,13 @@
     <fragment
         android:id="@+id/itemsFragment"
         android:name="se.tolk24.todolist_kotlin.ui.fragments.items.ItemsFragment"
-        android:label="ItemsFragment" />
+        android:label="ItemsFragment" >
+        <action
+            android:id="@+id/action_itemsFragment_to_createItemFragment"
+            app:destination="@id/createItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createItemFragment"
+        android:name="se.tolk24.todolist_kotlin.ui.fragments.create_item.CreateItemFragment"
+        android:label="CreateItemFragment" />
 </navigation>

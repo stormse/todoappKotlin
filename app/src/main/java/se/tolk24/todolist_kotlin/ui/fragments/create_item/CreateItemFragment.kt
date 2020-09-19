@@ -1,4 +1,4 @@
-package se.tolk24.todolist_kotlin.ui.fragments.create_list
+package se.tolk24.todolist_kotlin.ui.fragments.create_item
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,22 +9,31 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.textfield.TextInputEditText
 import se.tolk24.todolist_kotlin.R
+import se.tolk24.todolist_kotlin.data.models.Item
 import se.tolk24.todolist_kotlin.data.models.List
+import se.tolk24.todolist_kotlin.ui.fragments.items.ItemsFragment
+import se.tolk24.todolist_kotlin.ui.fragments.items.ItemsViewModel
 import se.tolk24.todolist_kotlin.ui.fragments.list.TodoListViewModel
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class CreateListFragment : Fragment() {
+class CreateItemFragment : Fragment() {
 
-    private val todoListViewModel: TodoListViewModel by activityViewModels()
+    private val itemsViewModel: ItemsViewModel by activityViewModels()
     private lateinit var mNameEditText: TextInputEditText
+    private lateinit var list: List
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        list = arguments?.get(ItemsFragment.LIST_KEY) as List
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_create_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_create_item, container, false)
         initView(view)
         return view
     }
@@ -39,8 +48,8 @@ class CreateListFragment : Fragment() {
 
         view.findViewById<View>(R.id.btn_create).setOnClickListener {
 
-            val list = List(mNameEditText.text.toString())
-            todoListViewModel.createList(list)
+            val item = Item(mNameEditText.text.toString())
+            itemsViewModel.createList(list.id, item)
             requireActivity().onBackPressed()
         }
     }
