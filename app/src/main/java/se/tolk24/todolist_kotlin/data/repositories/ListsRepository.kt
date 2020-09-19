@@ -14,6 +14,8 @@ class ListsRepository {
     val lists: LiveData<ArrayList<List>> = _lists
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> = _error
+    private val _isCreateList = MutableLiveData<Boolean>()
+    val isCreateList = _isCreateList
 
     fun fetchLists() {
         listsFirebaseManager.getListData(object : OnGetListsListener {
@@ -24,14 +26,19 @@ class ListsRepository {
             override fun onError(message: String?) {
                 message?.let { _error.postValue(it) }
             }
-
         })
     }
 
     fun createList(list: List) {
         listsFirebaseManager.addList(list, object : OnFirebaseCreateListener {
             override fun onSuccess() {
-                _error.postValue(null)
+                _isCreateList.postValue(true)
+                val lists = ArrayList<List>()
+                _lists.value?.let {
+                    lists.addAll(it)
+                }
+                lists.add(list)
+                _lists.postValue(lists)
             }
 
             override fun onError(message: String?) {

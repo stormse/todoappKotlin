@@ -6,19 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import se.tolk24.todolist_kotlin.R
-import se.tolk24.todolist_kotlin.data.models.List
-import se.tolk24.todolist_kotlin.ui.create_list.CreateListFragment
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class TodoListFragment : Fragment() {
 
-    private val todoListViewModel: TodoListViewModel by viewModels()
+    private val todoListViewModel: TodoListViewModel by activityViewModels()
     private lateinit var todoListAdapter: TodoListAdapter
 
     override fun onCreateView(
@@ -48,12 +46,21 @@ class TodoListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         todoListViewModel.lists.observe(viewLifecycleOwner, {
             todoListAdapter.setData(it)
         })
-        todoListViewModel.error.observe(viewLifecycleOwner, {
-            it?.let { Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show() }
+        todoListViewModel.isCreateList.observe(viewLifecycleOwner, {
+            showMessage(getString(R.string.list_created_successfully))
         })
+        todoListViewModel.error.observe(viewLifecycleOwner, {
+            todoListViewModel.error.observe(viewLifecycleOwner, {
+
+                it?.let { showMessage(it) }
+            })
+        })
+    }
+
+    private fun showMessage(message: String) {
+        Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
     }
 }

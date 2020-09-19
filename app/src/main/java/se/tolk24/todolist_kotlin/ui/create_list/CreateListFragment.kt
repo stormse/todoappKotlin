@@ -6,9 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.google.android.material.textfield.TextInputEditText
 import se.tolk24.todolist_kotlin.R
 import se.tolk24.todolist_kotlin.data.models.List
+import se.tolk24.todolist_kotlin.ui.list.TodoListViewModel
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -19,6 +23,7 @@ class CreateListFragment : Fragment() {
         val LIST_OBJ_KEY = "LIST_OBJ_KEY"
     }
 
+    private val todoListViewModel: TodoListViewModel by activityViewModels()
     private lateinit var mNameEditText: TextInputEditText
 
     override fun onCreateView(
@@ -41,9 +46,8 @@ class CreateListFragment : Fragment() {
         view.findViewById<View>(R.id.btn_create).setOnClickListener {
 
             val list = List(mNameEditText.text.toString())
-            val args = Bundle();
-            args.putSerializable(LIST_OBJ_KEY, list)
-
+            todoListViewModel.createList(list)
+            requireActivity().onBackPressed()
         }
     }
 }
